@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گرتنی نۆرە - کلینیکی د. بڕوا</title>
+    <style>
+        @font-face {
+            font-family: 'K24KurdishBold';
+            src: url('K24KurdishBold-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            /* Luxury Gold & Beige Palette */
+            --gold-primary: #C5A059;
+            --gold-light: #E3C887;
+            --gold-dark: #9E7D3F;
+            --bg-body: #F5EFE6;
+            --bg-card: #FFFFFF;
+            --text-main: #332D21;
+            --text-muted: #827866;
+            --border: #E8DFD1;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'K24KurdishBold', sans-serif; 
+        }
+
+        body { 
+            background-color: var(--bg-body);
+            background-image: radial-gradient(circle at center, #FFFFFF 0%, #F5EFE6 100%);
+            color: var(--text-main); 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            direction: rtl;
+        }
+
+        .container { 
+            background: var(--bg-card); 
+            padding: 40px 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(158, 125, 63, 0.15), 0 5px 15px rgba(0,0,0,0.05); 
+            border: 1px solid var(--border);
+            width: 100%; 
+            max-width: 420px; 
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            border: 4px solid var(--gold-light);
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.25);
+            background-image: url('logo.png');
+            background-size: 220%; /* Zoom into the image */
+            background-position: center 30%; /* Focus on the golden tooth logo */
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1 { 
+            color: var(--gold-dark); 
+            font-size: 1.6rem; 
+            margin-bottom: 5px;
+        }
+
+        p.subtitle { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            margin-bottom: 0;
+        }
+
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], 
+        input[type="tel"], 
+        input[type="date"] { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 2px solid var(--border); 
+            border-radius: 12px; 
+            font-size: 1rem; 
+            transition: all 0.3s ease; 
+            background: #FAFAFA;
+            color: var(--text-main);
+        }
+
+        input:focus { 
+            outline: none; 
+            border-color: var(--gold-primary); 
+            box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15); 
+            background: #FFFFFF;
+        }
+
+        /* Custom Patient Radio Buttons */
+        .patient-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #FAFAFA;
+            margin-bottom: 8px;
+        }
+
+        .patient-option:hover {
+            border-color: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.1);
+        }
+
+        .patient-option.selected {
+            border-color: var(--gold-primary);
+            background: rgba(197, 160, 89, 0.05);
+        }
+
+        .patient-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--gold-primary);
+        }
+
+        .patient-option span {
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .btn { 
+            width: 100%; 
+            padding: 16px; 
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%); 
+            color: #FFFFFF; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover:not([disabled]) { 
+            transform: translateY(-2px); 
+            box-shadow: 0 12px 25px rgba(197, 160, 89, 0.4);
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%); 
+        }
+
+        .btn:active:not([disabled]) {
+            transform: translateY(0);
+        }
+
+        .btn:disabled { 
+            background: var(--border); 
+            color: var(--text-muted); 
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+            text-shadow: none;
+        }
+
+        #result { 
+            margin-top: 20px; 
+            padding: 16px; 
+            border-radius: 12px; 
+            text-align: center; 
+            display: none; 
+            animation: fadeIn 0.4s ease;
+        }
+
+        .success { 
+            background-color: #F0FDF4; 
+            color: #166534; 
+            border: 1px solid #BBF7D0;
+        }
+        .error { 
+            background-color: #FEF2F2; 
+            color: #991B1B; 
+            border: 1px solid #FECACA;
+        }
+
+        #phone-loading {
+            color: var(--gold-dark); 
+            font-size: 0.9rem; 
+            margin-top: 8px; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(197, 160, 89, 0.2);
+            border-top-color: var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Ticket Design */
+        .ticket {
+            background: #FAFAFA;
+            border: 2px dashed var(--gold-light);
+            padding: 30px 20px;
+            margin-top: 20px;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .ticket::before, .ticket::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-body);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .ticket::before { left: -12px; border-right: 2px dashed var(--gold-light); }
+        .ticket::after { right: -12px; border-left: 2px dashed var(--gold-light); }
+
+        .ticket h3 { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 10px; }
+        .ticket h2 { font-size: 3.5rem; color: var(--gold-dark); margin: 5px 0 15px; }
+        .ticket .info { display: flex; justify-content: space-between; margin-top: 20px; text-align: right; font-size: 1.05rem; padding: 0 10px;}
+        .ticket .info span { color: var(--gold-dark); font-weight: bold; }
+        hr { border: 0; border-top: 2px dashed var(--border); margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <div class="header">
+            <div class="header-logo"></div>
+            <h1>کلینیکی د. بڕوا</h1>
+            <p class="subtitle">سیستەمی گرتنی نۆرەی ئۆنلاین</p>
+        </div>
+        
+        <form id="booking-form">
+            <div class="form-group">
+                <label for="b-phone">ژمارە مۆبایل *</label>
+                <input type="tel" id="b-phone" required placeholder="0750 000 0000" dir="ltr" style="text-align: right;" maxlength="11">
+                <div id="phone-loading" style="display:none;">
+                    <div class="spinner"></div>
+                    خەریکی گەڕان...
+                </div>
+            </div>
+            
+            <div id="patient-selection-container" style="display: none; margin-bottom: 18px;">
+                <label>تکایە ناوەکەت هەڵبژێرە *</label>
+                <div id="patient-list" style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Radio buttons will go here -->
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="b-date">ڕۆژی سەردان *</label>
+                <input type="date" id="b-date" required>
+            </div>
+            
+            <button type="submit" class="btn" id="submit-btn" disabled style="opacity: 0.7;">وەرگرتنی نۆرە</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js?v=8"></script>
+</body>
+</html>
