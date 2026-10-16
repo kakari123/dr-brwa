@@ -1,1070 +1,313 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-    <title>ئاری تێک</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>گرتنی نۆرە - کلینیکی د. بڕوا</title>
     <style>
         @font-face {
             font-family: 'K24KurdishBold';
-            src: url('${baseUrl}K24KurdishBold-Bold.ttf') format('truetype');
-        }
-        
-        .doctor-badge {
-            background-color: var(--clr-primary);
-            color: #ffffff;
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 1.1rem;
-            display: inline-block;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            src: url('K24KurdishBold-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
 
-        .elegant-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            background-color: var(--clr-surface);
-            color: var(--clr-text-main);
-            font-family: inherit;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 1px 3px rgba(0,0,0,0.05);
-        }
-        
-        .elegant-input:hover {
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 4px 6px rgba(0,0,0,0.05);
+        :root {
+            /* Luxury Gold & Beige Palette */
+            --gold-primary: #C5A059;
+            --gold-light: #E3C887;
+            --gold-dark: #9E7D3F;
+            --bg-body: #F5EFE6;
+            --bg-card: #FFFFFF;
+            --text-main: #332D21;
+            --text-muted: #827866;
+            --border: #E8DFD1;
         }
 
-        .elegant-input:focus {
-            border-color: var(--clr-primary);
-            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
-            background-color: #ffffff;
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'K24KurdishBold', sans-serif; 
         }
 
-        .row-total-elegant {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 10px;
-            padding: 0 12px;
-            border: 1px solid #e2e8f0;
-            color: var(--clr-primary-dark);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-            font-size: 1.05rem;
-        }
-        
-        .row-service-select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: left 12px center;
-            background-size: 16px;
-            padding-left: 40px; 
-        }
-        
-        .row-service-select option {
-            padding: 12px;
-            font-size: 1.05rem;
-            background-color: #ffffff;
-            color: #334155;
-            font-weight: 500;
+        body { 
+            background-color: var(--bg-body);
+            background-image: radial-gradient(circle at center, #FFFFFF 0%, #F5EFE6 100%);
+            color: var(--text-main); 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            direction: rtl;
         }
 
-        .row-service-select option:checked {
-            background-color: #e0f2fe;
-            color: #0369a1;
-            font-weight: 700;
+        .container { 
+            background: var(--bg-card); 
+            padding: 40px 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(158, 125, 63, 0.15), 0 5px 15px rgba(0,0,0,0.05); 
+            border: 1px solid var(--border);
+            width: 100%; 
+            max-width: 420px; 
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .dashboard-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .date-picker-input {
-            padding: 10px 16px;
-            border: 2px solid var(--clr-border);
-            border-radius: var(--radius-md);
-            background-color: var(--clr-surface);
-            color: var(--clr-text-main);
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            border: 4px solid var(--gold-light);
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.25);
+            background-image: url('logo.png');
+            background-size: 220%; /* Zoom into the image */
+            background-position: center 30%; /* Focus on the golden tooth logo */
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1 { 
+            color: var(--gold-dark); 
+            font-size: 1.6rem; 
+            margin-bottom: 5px;
+        }
+
+        p.subtitle { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            margin-bottom: 0;
+        }
+
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            color: var(--text-main);
             font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-            outline: none;
-            font-family: inherit;
         }
 
-        .date-picker-input:hover {
-            border-color: var(--clr-primary-light);
-            background-color: var(--clr-surface-dim);
+        input[type="text"], 
+        input[type="tel"], 
+        input[type="date"] { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 2px solid var(--border); 
+            border-radius: 12px; 
+            font-size: 1rem; 
+            transition: all 0.3s ease; 
+            background: #FAFAFA;
+            color: var(--text-main);
         }
 
-        .date-picker-input:focus {
-            border-color: var(--clr-primary);
-            box-shadow: 0 0 0 4px var(--clr-border-focus);
+        input:focus { 
+            outline: none; 
+            border-color: var(--gold-primary); 
+            box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15); 
+            background: #FFFFFF;
         }
 
-        .date-display {
-            color: var(--clr-primary-dark) !important;
-            font-size: 0.95rem !important;
-            font-weight: 600 !important;
-            background: var(--clr-primary-light) !important;
-            padding: 8px 16px !important;
-            border-radius: var(--radius-md) !important;
-            border: 1px solid rgba(14, 165, 233, 0.2) !important;
-            white-space: nowrap !important;
-        }
-
-        /* Live Search Results */
-        .live-search-container {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--clr-surface);
-            border: 1px solid var(--clr-border);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            z-index: 100;
-            max-height: 250px;
-            overflow-y: auto;
-            margin-top: 5px;
-            display: none;
-            /* Hidden by default */
-        }
-
-        .live-search-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--clr-surface-mixed);
-            cursor: pointer;
-            transition: background 0.2s;
+        /* Custom Patient Radio Buttons */
+        .patient-option {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-        }
-
-        .live-search-item:last-child {
-            border-bottom: none;
-        }
-
-        .live-search-item:hover {
-            background: var(--clr-surface-mixed);
-        }
-
-        .live-search-name {
-            font-weight: 700;
-            color: var(--clr-text-main);
-        }
-
-        .live-search-phone {
-            font-size: 0.85rem;
-            color: var(--clr-text-muted);
-            font-weight: 600;
-        }
-
-        /* Debtors View Styles */
-        .debtors-summary-banner {
-            background: var(--clr-danger-bg);
-            color: var(--clr-danger);
-            padding: 20px;
-            border-radius: var(--radius-lg);
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            box-shadow: var(--shadow-md);
-        }
-
-        #total-clinic-debt {
-            font-size: 2rem;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .debtor-item {
-            background: var(--clr-surface);
-            border: 1px solid var(--clr-border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
             cursor: pointer;
-        }
-
-        .debtor-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--clr-primary);
-        }
-
-        .debtor-info h3 {
-            margin: 0 0 5px 0;
-            color: var(--clr-text-main);
-            font-size: 1.1rem;
-        }
-
-        .debtor-details {
-            display: flex;
-            gap: 20px;
-            font-size: 0.85rem;
-            color: var(--clr-text-muted);
-        }
-
-        .debtor-amount {
-            text-align: right;
-        }
-
-        .debt-value {
-            display: block;
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--clr-danger);
-        }
-
-        .debt-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Custom Time Input Styling */
-        input[type="time"] {
-            padding: 12px;
-            border: 2px solid var(--clr-border);
-            border-radius: var(--radius-md);
-            background-color: var(--clr-surface);
-            color: var(--clr-primary-dark);
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-            outline: none;
-            font-family: inherit;
-            width: 100%;
-        }
-
-        input[type="time"]:hover {
-            border-color: var(--clr-primary-light);
-            background-color: var(--clr-surface-dim);
-        }
-
-        input[type="time"]:focus {
-            border-color: var(--clr-primary);
-            box-shadow: 0 0 0 4px var(--clr-border-focus);
-        }
-
-        input[type="time"]::-webkit-calendar-picker-indicator {
-            background-color: var(--clr-primary-light);
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        input[type="time"]::-webkit-calendar-picker-indicator:hover {
-            background-color: var(--clr-primary);
-        }
-        /* Calendar View Styles */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 1px;
-            background-color: var(--clr-border);
-            border: 1px solid var(--clr-border);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .calendar-day-header {
-            background-color: var(--clr-surface);
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            color: var(--clr-primary);
-            font-size: 0.9rem;
-        }
-
-        .calendar-day {
-            background-color: var(--clr-surface);
-            min-height: 120px;
-            max-height: 180px;
-            overflow-y: auto;
-            padding: 10px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            transition: background-color 0.2s;
-        }
-
-        .calendar-day:hover {
-            background-color: var(--clr-bg);
-        }
-
-        .calendar-day.empty-day {
-            background-color: var(--clr-bg);
-            opacity: 0.5;
-        }
-
-        .calendar-date-number {
-            font-weight: bold;
-            font-size: 1rem;
-            color: var(--clr-primary-dark);
+            transition: all 0.2s ease;
+            background: #FAFAFA;
             margin-bottom: 8px;
         }
 
-        .app-pill {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: #1f2937;
-            cursor: default;
+        .patient-option:hover {
+            border-color: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.1);
         }
 
-        .app-pill-color-0 { background-color: #fce7f3; } /* Pink */
-        .app-pill-color-1 { background-color: #fef08a; } /* Yellow */
-        .app-pill-color-2 { background-color: #d1fae5; } /* Green */
-        .app-pill-color-3 { background-color: #e0e7ff; } /* Blue */
-
-        .app-pill-time {
-            font-size: 0.75rem;
-            color: #4b5563;
+        .patient-option.selected {
+            border-color: var(--gold-primary);
+            background: rgba(197, 160, 89, 0.05);
         }
 
-        .calendar-add-btn {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: var(--clr-primary);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
+        .patient-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
             cursor: pointer;
-            border: none;
-            opacity: 0;
-            transition: opacity 0.2s;
-            text-decoration: none;
+            accent-color: var(--gold-primary);
         }
 
-        .calendar-day:hover .calendar-add-btn {
-            opacity: 1;
+        .patient-option span {
+            color: var(--text-main);
+            font-size: 1rem;
         }
 
-        .calendar-add-btn:hover {
-            background-color: var(--clr-primary-dark);
+        .btn { 
+            width: 100%; 
+            padding: 16px; 
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%); 
+            color: #FFFFFF; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
+
+        .btn:hover:not([disabled]) { 
+            transform: translateY(-2px); 
+            box-shadow: 0 12px 25px rgba(197, 160, 89, 0.4);
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%); 
+        }
+
+        .btn:active:not([disabled]) {
+            transform: translateY(0);
+        }
+
+        .btn:disabled { 
+            background: var(--border); 
+            color: var(--text-muted); 
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+            text-shadow: none;
+        }
+
+        #result { 
+            margin-top: 20px; 
+            padding: 16px; 
+            border-radius: 12px; 
+            text-align: center; 
+            display: none; 
+            animation: fadeIn 0.4s ease;
+        }
+
+        .success { 
+            background-color: #F0FDF4; 
+            color: #166534; 
+            border: 1px solid #BBF7D0;
+        }
+        .error { 
+            background-color: #FEF2F2; 
+            color: #991B1B; 
+            border: 1px solid #FECACA;
+        }
+
+        #phone-loading {
+            color: var(--gold-dark); 
+            font-size: 0.9rem; 
+            margin-top: 8px; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(197, 160, 89, 0.2);
+            border-top-color: var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Ticket Design */
+        .ticket {
+            background: #FAFAFA;
+            border: 2px dashed var(--gold-light);
+            padding: 30px 20px;
+            margin-top: 20px;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .ticket::before, .ticket::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--bg-body);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .ticket::before { left: -12px; border-right: 2px dashed var(--gold-light); }
+        .ticket::after { right: -12px; border-left: 2px dashed var(--gold-light); }
+
+        .ticket h3 { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 10px; }
+        .ticket h2 { font-size: 3.5rem; color: var(--gold-dark); margin: 5px 0 15px; }
+        .ticket .info { display: flex; justify-content: space-between; margin-top: 20px; text-align: right; font-size: 1.05rem; padding: 0 10px;}
+        .ticket .info span { color: var(--gold-dark); font-weight: bold; }
+        hr { border: 0; border-top: 2px dashed var(--border); margin: 20px 0; }
     </style>
 </head>
-
 <body>
-
-    <div id="toast-container"></div>
-
-    <!-- Login Container -->
-    <div id="login-container" class="login-container">
-        <div class="login-box">
-            <div class="login-header">
-                <h2>کلینیکی ددان</h2>
-                <p>تکایە سەرەتا بچۆ ژوورەوە</p>
-            </div>
-            <form id="login-form">
-
-                <div class="input-group" style="margin-top: 15px;">
-                    <label>ئیمەیڵ</label>
-                    <input type="email" id="login-email" placeholder="example@clinic.com" required dir="ltr"
-                        style="text-align: left;">
-                </div>
-                <div class="input-group" style="margin-top: 15px;">
-                    <label>تێپەڕەوشە (پاسۆرد)</label>
-                    <input type="password" id="login-password" placeholder="••••••••" required dir="ltr"
-                        style="text-align: left;">
-                </div>
-                <button type="submit" class="btn-primary w-full" id="login-btn"
-                    style="margin-top: 25px;">چوونەژوورەوە</button>
-            </form>
-            <div id="login-error"
-                style="color: var(--clr-danger); margin-top: 15px; font-size: 0.9rem; display: none; text-align: center;">
-            </div>
+    <div class="container" id="main-container">
+        <div class="header">
+            <div class="header-logo"></div>
+            <h1>کلینیکی د. بڕوا</h1>
+            <p class="subtitle">سیستەمی گرتنی نۆرەی ئۆنلاین</p>
         </div>
-    </div>
-
-    <div class="app-container" id="app-container" style="display: none;">
-        <!-- Mobile Header (Visible only on mobile) -->
-        <header class="mobile-header">
-            <button class="menu-toggle" onclick="toggleSidebar()">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
-            <h2><span class="doctor-badge">دکتۆر بڕوا</span></h2>
-            <div style="width:24px"></div> <!-- For balance -->
-        </header>
-
-
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar" id="app-sidebar">
-            <div class="sidebar-header">
-                <h3 style="margin: 0; padding: 10px; color: var(--clr-primary);">کلینیکی ددان <br><span class="doctor-badge" style="font-size: 0.85rem; margin-top: 5px;">د. بڕوا</span></h3>
-                <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
-            </div>
-            <ul class="nav-links">
-                <li class="active" onclick="navigateTo('dashboard')">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="14" width="7" height="7"></rect>
-                        <rect x="3" y="14" width="7" height="7"></rect>
-                    </svg>
-                    بۆردی سەرەکی
-                </li>
-                <li onclick="navigateTo('register')">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="8.5" cy="7" r="4"></circle>
-                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                        <line x1="17" y1="11" x2="23" y2="11"></line>
-                    </svg>
-                    تۆمارکردنی نەخۆش
-                </li>
-                <li onclick="navigateTo('history')">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
-                    مێژووی نەخۆشەکان
-                </li>
-                <li onclick="navigateTo('debtors')">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    </svg>
-                    لیستی حیساباتە ماوەکان
-                </li>
-                <li onclick="navigateTo('calendar-view')">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                    ڕۆژژمێر
-                </li>
-                <li onclick="navigateTo('reports')">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="20" x2="18" y2="10"></line>
-                        <line x1="12" y1="20" x2="12" y2="4"></line>
-                        <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                    ئامار و ڕاپۆرتەکان
-                </li>
-                <li onclick="navigateTo('settings')">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path
-                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                        </path>
-                    </svg>
-                    ڕێکخستن
-                </li>
-                <li onclick="toggleTheme()" class="mt-20 border-dashed">گۆڕینی ڕەنگ 🌓</li>
-                <li onclick="window.logoutUser()" style="color: var(--clr-danger); margin-top: 8px;">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                        <polyline points="16 17 21 12 16 7"></polyline>
-                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                    </svg>
-                    چوونەدەرەوە
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main class="content">
-
-            <!-- Dashboard View -->
-            <section id="dashboard" class="view active">
-                <header class="view-header dashboard-controls">
-                    <h1>نۆرەی ئەمڕۆ <span class="doctor-badge" style="margin-right: 15px; font-size: 1rem;">دکتۆر بڕوا</span></h1>
-                    <div class="dashboard-controls">
-                        <button type="button" class="btn-secondary btn-small" onclick="window.goToToday()">ئەمڕۆ</button>
-                        <input type="date" id="dashboard-date" class="date-picker-input"
-                            onchange="window.changeDashboardDate(this.value)">
-                        <div class="date-display" id="current-date">--</div>
-                    </div>
-                </header>
-
-                <div class="queue-stats">
-                    <div class="stat-card">
-                        <h3>لە چاوەڕوانیدا</h3>
-                        <span id="count-waiting">0</span>
-                    </div>
-                    <div class="stat-card">
-                        <h3>لە ژوورەوەیە</h3>
-                        <span id="count-progress">0</span>
-                    </div>
-                    <div class="stat-card">
-                        <h3>تەواو بووە</h3>
-                        <span id="count-completed">0</span>
-                    </div>
-                </div>
-
-                <div class="queue-list" id="queue-list">
-                    <!-- Queue items will be injected here -->
-                    <div class="empty-state">هیچ نەخۆشێک لە نۆرەدا نییە.</div>
-                </div>
-            </section>
-
-            <!-- Registration View -->
-            <section id="register" class="view">
-                <header class="view-header" style="display:flex; justify-content:space-between; align-items:center;">
-                    <h1>تۆمارکردنی نەخۆشێکی نوێ</h1>
-                    <button class="btn-danger-outline btn-small" onclick="navigateTo('debtors')">بینینی لیستی قەرزەکان
-                    </button>
-                </header>
-                <div class="form-container">
-                    <form id="register-form">
-                        <div class="input-grid">
-                            <div class="input-group">
-                                <label for="p-name">ناوی تەواو</label>
-                                <input type="text" id="p-name" required placeholder="ناوی تەواو">
-                                <div id="live-search-results" class="live-search-container"></div>
-                            </div>
-                            <div class="input-group">
-                                <label for="p-phone">ژمارەی مۆبایل</label>
-                                <input type="tel" id="p-phone" required placeholder="0750 123 4567">
-                            </div>
-                            <div class="input-group">
-                                <label for="p-phone2">ژمارەی دووەم</label>
-                                <input type="tel" id="p-phone2" placeholder="0750 123 4567">
-                            </div>
-                            <div class="input-group">
-                                <label for="p-age">تەمەن</label>
-                                <input type="number" id="p-age" placeholder="25">
-                            </div>
-                            <div class="input-group">
-                                <label for="p-date">بەرواری سەردان</label>
-                                <input type="date" id="p-date" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="p-time">کاتژمێر</label>
-                                <div style="display: flex; gap: 10px;">
-                                    <select onchange="document.getElementById('p-time').value = this.value; this.selectedIndex = 0;" style="flex:1; padding:12px; border-radius:8px; border:1px solid var(--clr-border); background:var(--clr-surface); color:var(--clr-primary-dark); font-weight:bold; font-size:1.1rem; font-family:inherit; outline:none; cursor:pointer;">
-                                        <option value="" disabled selected> هەڵبژاردن...</option>
-                                        <option value="13:00">1:00</option>
-                                        <option value="13:30">1:30</option>
-                                        <option value="14:00">2:00</option>
-                                        <option value="14:30">2:30</option>
-                                        <option value="15:00">3:00</option>
-                                        <option value="15:30">3:30</option>
-                                        <option value="16:00">4:00</option>
-                                        <option value="16:30">4:30</option>
-                                        <option value="17:00">5:00</option>
-                                        <option value="17:30">5:30</option>
-                                        <option value="18:00">6:00</option>
-                                        <option value="18:30">6:30</option>
-                                        <option value="19:00">7:00</option>
-                                        <option value="19:30">7:30</option>
-                                        <option value="20:00">8:00</option>
-                                        <option value="20:30">8:30</option>
-                                        <option value="21:00">9:00</option>
-                                        <option value="21:30">9:30</option>
-                                        <option value="22:00">10:00</option>
-                                        <option value="22:30">10:30</option>
-                                        <option value="23:00">11:00</option>
-                                        <option value="23:30">11:30</option>
-                                    </select>
-                                    <input type="time" id="p-time" style="flex:1;" onclick="if(this.showPicker) this.showPicker();">
-                                </div>
-                            </div>
-
-                            <div class="input-group" style="grid-column: 1 / -1;">
-                                <label style="margin-bottom: 10px;">نەخۆشی درێژ خایەن (ئەگەر هەیە):</label>
-                                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
-                                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer;">
-                                        <input type="checkbox" id="cd-diabetes" style="width: 18px; height: 18px; accent-color: var(--clr-primary);"> شەکرە
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer;">
-                                        <input type="checkbox" id="cd-pressure" style="width: 18px; height: 18px; accent-color: var(--clr-primary);"> زەخت
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer;">
-                                        <input type="checkbox" id="cd-blood" style="width: 18px; height: 18px; accent-color: var(--clr-primary);"> خوێن شلبوونەوە
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer;">
-                                        <input type="checkbox" id="cd-liver" style="width: 18px; height: 18px; accent-color: var(--clr-primary);"> جگەر
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer;">
-                                        <input type="checkbox" id="cd-asthma" style="width: 18px; height: 18px; accent-color: var(--clr-primary);"> ڕەبۆ
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer;">
-                                        <input type="checkbox" id="cd-epilepsy" style="width: 18px; height: 18px; accent-color: var(--clr-primary);"> گەشکە
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; cursor: pointer;">
-                                        <input type="checkbox" id="cd-cancer" style="width: 18px; height: 18px; accent-color: var(--clr-primary);"> شێرپەنجە
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="input-group" style="grid-column: 1 / -1;">
-                                <label for="p-register-note">تێبینی:</label>
-                                <textarea id="p-register-note" placeholder="تێبینی بنووسە..."
-                                    style="width:100%; min-height: 80px; padding:12px; border-radius:8px; border:1px solid var(--clr-border); background:var(--clr-surface); color:var(--clr-text-main); font-family:inherit; font-size:1rem; outline:none; resize:vertical;"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary">تۆمارکردن و ناردن بۆ نۆرە</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-
-            <!-- History View -->
-            <section id="history" class="view">
-                <header class="view-header">
-                    <h1>مێژووی نەخۆشەکان</h1>
-                </header>
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="گەڕان بەپێی ناو یان مۆبایل..."
-                        oninput="searchPatients()">
-                    <button onclick="searchPatients()" class="btn-secondary">گەڕان</button>
-                </div>
-
-                <div class="patient-list" id="patient-results">
-                    <!-- Search results here -->
-                </div>
-
-                <!-- Patient Details Modal / Section -->
-                <div id="patient-details" class="patient-details hidden">
-                    <button class="back-btn" onclick="closePatientDetails()">← گەڕانەوە بۆ ئەنجامەکان</button>
-                    <div class="flex-between">
-                        <h2 id="detail-name">ناوی نەخۆش</h2>
-                        <button onclick="openEditModal()" class="btn-secondary btn-small">دەستکاری زانیاری</button>
-                    </div>
-                    <p>مۆبایل: <span id="detail-phone"></span> | تەمەن: <span id="detail-age"></span></p>
-
-                    <div class="treatments-section">
-                        <h3>مێژووی چارەسەرەکان</h3>
-                        <ul id="treatment-list">
-                            <!-- Treatments here -->
-                        </ul>
-
-                        <!-- Patient Actions & Debt Summary -->
-                        <div class="patient-actions-panel">
-                            <div class="patient-actions-header">
-                                <h4>کۆی گشتیی قەرزی ئەم نەخۆشە:</h4>
-                                <span id="detail-total-debt" class="text-danger">0 دینار</span>
-                            </div>
-
-
-                            <div class="action-buttons">
-                                <button type="button" class="btn-primary" onclick="startNewVisitForPatient()">+ سەردانی
-                                    نوێ (وەرگرتن)</button>
-                                <button type="button" class="btn-success-outline" onclick="openPaymentModal()">+ دانەوەی
-                                    قەرز </button>
-                                <button type="button" class="btn-danger-outline"
-                                    onclick="deleteCurrentPatient()">سڕینەوەی نەخۆش</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Debtors View -->
-            <section id="debtors" class="view">
-                <header class="view-header">
-                    <h1>لیستی حیساباتە ماوەکان </h1>
-                </header>
-                <div class="debtors-summary-banner" id="debtors-summary">
-                    کۆی گشتی بڕی ماوە: <span id="total-clinic-debt">0</span> دینار
-                </div>
-
-                <div class="debtors-filters"
-                    style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 15px; margin-bottom: 20px; background: var(--clr-surface-dim); padding: 15px; border-radius: var(--radius-md); border: 1px solid var(--clr-border);">
-                    <div class="input-group mb-0">
-                        <label>گەڕان بەپێی ناو</label>
-                        <input type="text" id="debtor-search-name" placeholder="ناو..." oninput="renderDebtors()">
-                    </div>
-                    <div class="input-group mb-0">
-                        <label>کەمترین بڕی ماوە</label>
-                        <input type="number" id="debtor-min-amount" placeholder="0" oninput="renderDebtors()">
-                    </div>
-                    <div class="input-group mb-0">
-                        <label>ڕیزبەندکردن</label>
-                        <select id="debtor-sort" onchange="renderDebtors()">
-                            <option value="highest">زۆرترین بڕی ماوە</option>
-                            <option value="oldest">کۆنترین بڕی ماوە</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="debtors-list" id="debtors-list">
-                    <!-- Debtors will be injected here -->
-                    <div class="empty-state">هیچ قەرزێک تۆمار نەکراوە.</div>
-                </div>
-            </section>
-
-
-            <!-- Reports View -->
-            <section id="reports" class="view">
-                <header class="view-header">
-                    <h1>ئامار و ڕاپۆرتەکان</h1>
-                    <div class="report-filters">
-                        <select id="report-period" onchange="window.renderReports()">
-                            <option value="today">ئەمڕۆ</option>
-                            <option value="week">ئەم هەفتەیە</option>
-                            <option value="month">ئەم مانگە</option>
-                            <option value="year">ئەم ساڵ</option>
-                            <option value="all">هەمووی</option>
-                        </select>
-                    </div>
-                </header>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h3>کۆی داهات (وەگیراو)</h3>
-                        <span id="report-total-revenue">0 د.ع</span>
-                    </div>
-                    <div class="stat-card">
-                        <h3>کۆی بڕی ماوە</h3>
-                        <span id="report-total-debt" class="text-danger">0 د.ع</span>
-                    </div>
-                    <div class="stat-card">
-                        <h3>ژمارەی نەخۆش</h3>
-                        <span id="report-patient-count">0</span>
-                    </div>
-                </div>
-
-                <div class="reports-container">
-                    <div class="card">
-                        <h3>خزمەتگوزارییە هەرە باوەکان</h3>
-                        <div id="popular-services-list" class="mt-15">
-                            <!-- JS will inject here -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Settings View -->
-            <section id="settings" class="view">
-                <header class="view-header">
-                    <h1>ڕێکخستن </h1>
-                </header>
-
-                <div class="settings-grid">
-                    <div class="card">
-                        <h3> چارەسەرەکان</h3>
-                        <p>.</p>
-                        <form id="service-form" class="service-add-form mt-20">
-                            <div class="input-group mb-0">
-                                <label for="service-name">ناوی چارەسەر</label>
-                                <input type="text" id="service-name" placeholder="  ناوی چارەسەر " required>
-                            </div>
-                            <div class="input-group mb-0">
-                                <label for="service-price">نرخ (دینار)</label>
-                                <input type="number" id="service-price" placeholder=" نرخ" required>
-                            </div>
-                            <div class="input-group mb-0">
-                                <label for="service-color">ڕەنگی هێڵکاری ددان</label>
-                                <input type="color" id="service-color" value="#0ea5e9" required
-                                    style="width: 100%; height: 40px; border: 1px solid var(--clr-border); border-radius: var(--radius-md); cursor: pointer;">
-                            </div>
-                            <button type="submit" class="btn-primary">زیادکردن</button>
-                        </form>
-                        <ul id="service-list" class="mt-15 list-none p-0 services-manage-list">
-                            <!-- Services loaded from db -->
-                        </ul>
-                    </div>
-
-
-
-
-                </div>
-            </section>
-            <!-- Calendar View -->
-            <section id="calendar-view" class="view">
-                <header class="view-header" style="display:flex; justify-content:space-between; align-items:center;">
-                    <h1>ڕۆژژمێر</h1>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <button class="btn-secondary" onclick="window.changeMonth(-1)">&#8594; پێشوو</button>
-                        <span id="calendar-month-year" style="font-weight: bold; font-size: 1.2rem; min-width: 150px; text-align: center;">مانگ</span>
-                        <button class="btn-secondary" onclick="window.changeMonth(1)">داهاتوو &#8592;</button>
-                    </div>
-                </header>
-                <div class="calendar-grid" id="calendar-grid-container">
-                    <div class="calendar-day-header">شەممە</div>
-                    <div class="calendar-day-header">یەکشەممە</div>
-                    <div class="calendar-day-header">دووشەممە</div>
-                    <div class="calendar-day-header">سێشەممە</div>
-                    <div class="calendar-day-header">چوارشەممە</div>
-                    <div class="calendar-day-header">پێنجشەممە</div>
-                    <!-- Calendar days injected here -->
-                </div>
-            </section>
-        </main>
-
-        <!-- App Footer (Fixed at bottom) -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span>ari tech</span>
-                </div>
-
-                <div class="footer-links">
-                    <a href="tel:07508395801">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.82 12.82 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                            </path>
-                        </svg>
-                        مۆبایل
-                    </a>
-                    <span class="separator">/</span>
-                    <a href="https://t.me/vx4ryi" target="_blank">
-                        تێلیگرام
-                    </a>
-                    <span class="separator">/</span>
-                    <a href="https://facebook.com/vx.4ryi" target="_blank">
-                        فەیسبووک
-                    </a>
-                </div>
-
-                <div class="footer-credit">
-                    دروست کراوە لەلایەن <strong>ari tech</strong> &copy; 2026
+        
+        <form id="booking-form">
+            <div class="form-group">
+                <label for="b-phone">ژمارە مۆبایل *</label>
+                <input type="tel" id="b-phone" required placeholder="0750 000 0000" dir="ltr" style="text-align: right;" maxlength="11">
+                <div id="phone-loading" style="display:none;">
+                    <div class="spinner"></div>
+                    خەریکی گەڕان...
                 </div>
             </div>
-        </footer>
+            
+            <div id="patient-selection-container" style="display: none; margin-bottom: 18px;">
+                <label>تکایە ناوەکەت هەڵبژێرە *</label>
+                <div id="patient-list" style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Radio buttons will go here -->
+                </div>
+            </div>
 
+
+            <div class="form-group">
+                <label for="b-date">ڕۆژی سەردان *</label>
+                <input type="date" id="b-date" required>
+            </div>
+            
+            <button type="submit" class="btn" id="submit-btn" disabled style="opacity: 0.7;">وەرگرتنی نۆرە</button>
+        </form>
+
+        <div id="result"></div>
     </div>
 
-    <!-- Edit Patient Modal -->
-    <div id="edit-patient-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeEditModal()">&times;</span>
-            <h2>دەستکاری زانیاری نەخۆش</h2>
-
-            <form id="edit-patient-form">
-                <div class="input-group">
-                    <label>ناوی تەواو</label>
-                    <input type="text" id="edit-name" required>
-                </div>
-                <div class="input-group">
-                    <label>ژمارەی مۆبایل</label>
-                    <input type="tel" id="edit-phone" required>
-                </div>
-                <div class="input-group">
-                    <label>ژمارەی دووەم</label>
-                    <input type="tel" id="edit-phone2">
-                </div>
-                <div class="input-group">
-                    <label>تەمەن</label>
-                    <input type="number" id="edit-age">
-                </div>
-                <button type="submit" class="btn-primary">پاشەکەوتکردن</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Pay Debt Modal -->
-    <div id="pay-debt-modal" class="modal hidden">
-        <div class="modal-content modal-narrow text-center">
-            <span class="close-modal" onclick="closePaymentModal()">&times;</span>
-            <h2 class="text-success mb-20">وەرگرتنی بڕی ماوە</h2>
-            <p class="text-muted mb-20">    تێستتت</p>
-            <form id="pay-debt-form">
-                <div class="input-group text-right">
-                    <label>بڕی پارە (دینار)</label>
-                    <input type="number" id="payment-amount" required placeholder="بۆ نموونە: 15000" min="500">
-                </div>
-                <div class="input-group text-right" style="margin-top: 15px;">
-                    <label>داشکاندن </label>
-                    <input type="number" id="payment-discount" placeholder="0" min="0">
-                </div>
-                <div class="input-group text-right" style="margin-top: 15px;">
-                    <label>تێبینی</label>
-                    <textarea id="payment-note" placeholder="تێبینی بنووسە..." style="width:100%; min-height: 60px; padding:12px; border-radius:8px; border:1px solid var(--clr-border); background:var(--clr-surface); color:var(--clr-text-main); outline:none; resize:vertical;"></textarea>
-                </div>
-                <button type="submit" class="btn-primary w-full mt-15" style="background: var(--clr-success);">وەرگرتن
-                    (سەیڤکردن)</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Checkout / Billing Modal -->
-    <div id="checkout-modal" class="modal hidden">
-        <div class="modal-content modal-wide">
-            <span class="close-modal" onclick="closeCheckoutModal()">&times;</span>
-            <h2 class="mb-5 text-primary-dark">پسوڵەی دەرچوون و پارەدان</h2>
-            <p class="text-muted mb-20">نەخۆش: <strong id="checkout-patient-name">ناوی نەخۆش</strong></p>
-
-            <form id="checkout-form">
-                <input type="hidden" id="checkout-queue-id">
-
-                <div class="dental-chart-container mb-20"
-                    style="background: var(--clr-surface-dim); padding: 15px; border-radius: var(--radius-lg); border: 1px solid var(--clr-border);">
-                    <h3 class="mb-10 text-center text-primary-dark">هێڵکاری ددان (دیاریکردنی شوێنی چارەسەر)</h3>
-                    <p class="text-center text-muted mb-10" style="font-size: 0.85rem;">کلیک لە چارەسەرێک بکە لە خوارەوە
-                        بۆ ئەوەی چالاک بێت، پاشان کلیک لە ددانەکان بکە.</p>
-                    <div class="text-center mb-10">
-                        <button type="button" class="btn-secondary btn-small" onclick="window.selectAllTeeth()">دیاریکردن/لابردنی هەموو ددانەکان</button>
-                    </div>
-                    <div id="dental-chart-wrapper">
-                        <!-- Teeth will be injected here via app.js -->
-                    </div>
-                </div>
-
-                <div class="services-container">
-                    <h3>چارەسەرەکان</h3>
-                    <div class="services-grid-header">
-                        <span>جۆری چارەسەر</span>
-                        <span>بڕ</span>
-                        <span>نرخی دانە</span>
-                        <span>کۆی دانە</span>
-                        <span></span>
-                    </div>
-                    <div id="service-rows">
-                        <!-- JS will inject rows here -->
-                    </div>
-                    <button type="button" class="btn-secondary mt-10" onclick="addServiceRow()">+ چارەسەرێکی تر</button>
-
-                    <div class="input-group" style="margin-top: 20px;">
-                        <label for="p-treatment-note">تێبینی </label>
-                        <textarea id="p-treatment-note" placeholder="تێبینی ..."
-                            style="width:100%; min-height: 80px; padding:12px; border-radius:8px; border:1px solid var(--clr-border); background:var(--clr-surface); color:var(--clr-text-main); font-family:inherit; font-size:1rem; outline:none; resize:vertical;"></textarea>
-                    </div>
-                </div>
-
-                <div id="checkout-old-debt-warning" class="hidden" style="color: #ef4444; font-weight: bold; font-size: 1.1rem; text-align: center; margin-bottom: 15px; padding: 10px; background-color: #fee2e2; border-radius: 8px; border: 1px solid #fca5a5;"></div>
-
-                <div class="billing-summary">
-                    <!-- 1. کۆی گشتی -->
-                    <div class="billing-summary-item">
-                        <strong>کۆی گشتی:</strong>
-                        <span id="display-subtotal">0 دینار</span>
-                    </div>
-
-                    <!-- 2. کۆی داشکاندن -->
-                    <div style="margin-bottom: 15px;">
-                        <div class="input-group">
-                            <label for="p-discount">کۆی داشکاندن (دینار)</label>
-                            <input type="number" id="p-discount" placeholder="0" value="0"
-                                oninput="window.calculateCart()">
-                        </div>
-                        <input type="hidden" id="p-discount-note" value="">
-                    </div>
-
-                    <!-- 3. بڕی دراو -->
-                    <div style="margin-bottom: 15px;">
-                        <div class="input-group">
-                            <label for="p-paid"
-                                style="display:flex; justify-content:space-between; align-items:center;">
-                                <span>بڕی دراو (دینار)</span>
-                                <button type="button" onclick="window.fillTotalAmount()" class="btn-primary"
-                                    style="padding: 2px 10px; font-size: 0.8rem; border-radius: 4px; height: auto;">گشت</button>
-                            </label>
-                            <input type="number" id="p-paid" required placeholder="چەندی داوە"
-                                oninput="window.calculateCart()">
-                        </div>
-                        <input type="hidden" id="p-method" value="cash">
-                    </div>
-
-                    <!-- 4. بڕی ماوە -->
-                    <div class="billing-summary-item"
-                        style="border-top: 1px dashed var(--clr-border); padding-top: 15px;">
-                        <strong>بڕی ماوە (قەرز):</strong>
-                        <span id="display-debt" style="color: var(--clr-danger); font-weight: bold;">0 دینار</span>
-                    </div>
-                    <span id="display-total" style="display:none;"></span>
-                    <!-- Hidden to avoid breaking old JS logic -->
-                </div>
-
-                <div class="form-actions mt-20">
-                    <button type="submit" class="btn-primary w-full">کۆتایی پێ هێنان </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        // کۆدەکانی سوپابەیس ئێستا بە شێوەی داینامیکی لە ناو app.js دروست دەکرێن
-        // چونکە بۆ هەر دکتۆرێک سێرڤەرێکی جیاوازمان هەیە
-    </script>
-
-    <script src="app.js?v=5" defer></script>
-    <!-- Edit Service Modal -->
-    <div id="edit-service-modal" class="modal hidden">
-        <div class="modal-content modal-narrow">
-            <span class="close-modal" onclick="closeEditServiceModal()">&times;</span>
-            <h2 class="mb-20">دەستکاریکردنی چارەسەر</h2>
-            <form id="edit-service-form">
-                <input type="hidden" id="edit-service-id">
-                <div class="input-group">
-                    <label>ناوی چارەسەر</label>
-                    <input type="text" id="edit-service-name" required>
-                </div>
-                <div class="input-group">
-                    <label>نرخ (دینار)</label>
-                    <input type="number" id="edit-service-price" required>
-                </div>
-                <div class="input-group">
-                    <label>ڕەنگی هێڵکاری ددان</label>
-                    <input type="color" id="edit-service-color" required
-                        style="width: 100%; height: 40px; border: 1px solid var(--clr-border); border-radius: var(--radius-md); cursor: pointer;">
-                </div>
-                <button type="submit" class="btn-primary w-full mt-10">پاشەکەوتکردنی گۆڕانکارییەکان</button>
-            </form>
-        </div>
-    </div>
-
+    <script src="app.js?v=8"></script>
 </body>
-
 </html>
